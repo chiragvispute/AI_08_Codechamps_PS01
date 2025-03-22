@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>  
+    <div class="ask">Have queries ? 
+        <p>Connect with our Virtual Assistant via a Video Call !</p>
+    </div>
+    </nav>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        nav{
+            display: flex;
+            justify-content: center;
+        }
+        .ask {
+            margin-top: 100px;
+            
+            padding: 10px 20px;
+            color: #007bff;  
+            border: none;  
+            border-radius: 5px;  
+            font-size: 44px;  
+            font-weight: 500;  
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            
+        }
+
+        .ask p{
+            font-size: 34px;  
+            font-weight: 645px;
+        }
+    </style>
+    <script>
+        !function (window) {
+            const host = "https://labs.heygen.com",
+                url = host + "/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJTaWxhc19DdXN0b21lclN1cHBvcnRfcHVi%0D%0AbGljIiwicHJldmlld0ltZyI6Imh0dHBzOi8vZmlsZXMyLmhleWdlbi5haS9hdmF0YXIvdjMvYTFl%0D%0AZDhjNzFlNGJmNGU2Y2I5MDcxZDJiN2NkNzFlNGVfNDU2NjAvcHJldmlld190YWxrXzEud2VicCIs%0D%0AIm5lZWRSZW1vdmVCYWNrZ3JvdW5kIjpmYWxzZSwia25vd2xlZGdlQmFzZUlkIjoiMmFkY2NkNWYz%0D%0ANmUxNDU2YmFkNDdmNzg2MGRlNWFmOGEiLCJ1c2VybmFtZSI6ImFkNDZkYWI3NTI5NjRhZjNhODNl%0D%0AZDJiMzY1NjdkMzBiIn0%3D&inIFrame=1",
+                clientWidth = document.body.clientWidth,
+                wrapDiv = document.createElement("div");
+
+            wrapDiv.id = "heygen-streaming-embed";
+
+            const container = document.createElement("div");
+            container.id = "heygen-streaming-container";
+
+            const stylesheet = document.createElement("style");
+            stylesheet.innerHTML = `
+                #heygen-streaming-embed {
+                    z-index: 9999;
+                    position: fixed;
+                    top: 50%; /* Center vertically */
+                    left: 50%; /* Center horizontally */
+                    transform: translate(-50%, -50%); /* Adjust for exact centering */
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 50%;
+                    border: 2px solid #fff;
+                    box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.12);
+                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother transition */
+                    overflow: hidden;
+        
+                    opacity: 0;
+                    visibility: hidden;
+                }
+                #heygen-streaming-embed.show {
+                    opacity: 1;
+                    visibility: visible;
+                }
+                #heygen-streaming-embed.expand {
+                    width: 90%; /* Increase width to 90% of the screen */
+                    height: 80%; /* Increase height to 80% of the screen */
+                    border-radius: 10px; /* Optional: Add rounded corners */
+                    border: 2px solid #fff; /* Optional: Add a border */
+                    transform: translate(-50%, -50%) scale(1); /* Smooth scaling */
+                }
+                #heygen-streaming-container {
+                    width: 100%;
+                    height: 100%;
+                }
+                #heygen-streaming-container iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: 0;
+                }
+            `;
+
+            const iframe = document.createElement("iframe");
+            iframe.allowFullscreen = !1,
+                iframe.title = "Streaming Embed",
+                iframe.role = "dialog",
+                iframe.allow = "microphone",
+                iframe.src = url;
+
+            let visible = !1, initial = !1;
+
+            window.addEventListener("message", (e => {
+                e.origin === host && e.data && e.data.type && "streaming-embed" === e.data.type && (
+                    "init" === e.data.action ? (initial = !0, wrapDiv.classList.toggle("show", initial)) :
+                        "show" === e.data.action ? (visible = !0, wrapDiv.classList.toggle("expand", visible)) :
+                            "hide" === e.data.action && (visible = !1, wrapDiv.classList.toggle("expand", visible))
+                )
+            }));
+
+            container.appendChild(iframe);
+            wrapDiv.appendChild(stylesheet);
+            wrapDiv.appendChild(container);
+            document.body.appendChild(wrapDiv);
+        }(globalThis);
+    </script>
+</body>
+
+</html>
