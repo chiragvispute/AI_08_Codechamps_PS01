@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 position: fixed;
                 top: 50%;
                 left: 50%; /* Center horizontally */
-                transform: translate(-50%, -50%); /* Center both vertically and horizontally */
+                transform: translate(-50%, -30%); /* Center both vertically and horizontally */
                 width: 600px; /* Fixed width for rectangular shape */
                 height: 500px; /* Taller than width for rectangular shape */
                 border-radius: 10px; /* Slight rounding on corners */
