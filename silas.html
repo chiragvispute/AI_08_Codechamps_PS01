@@ -1,121 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <nav>  
-    <div class="ask">Have queries ? 
-        <p>Connect with our Virtual Assistant via a Video Call !</p>
-    </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sSilas AI Chat</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="silas.css" />
+  </head>
+  <body>
+    <!-- Top Navbar -->
+    <nav class="navbar">
+      <div class="logo">Silas AI</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="silas.html" class="active">Chat</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
     </nav>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        nav{
-            display: flex;
-            justify-content: center;
-        }
-        .ask {
-            margin-top: 100px;
-            
-            padding: 10px 20px;
-            color: #007bff;  
-            border: none;  
-            border-radius: 5px;  
-            font-size: 44px;  
-            font-weight: 500;  
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            
-        }
 
-        .ask p{
-            font-size: 34px;  
-            font-weight: 645px;
-        }
-    </style>
-    <script>
-        !function (window) {
-            const host = "https://labs.heygen.com",
-                url = host + "/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJTaWxhc19DdXN0b21lclN1cHBvcnRfcHVi%0D%0AbGljIiwicHJldmlld0ltZyI6Imh0dHBzOi8vZmlsZXMyLmhleWdlbi5haS9hdmF0YXIvdjMvYTFl%0D%0AZDhjNzFlNGJmNGU2Y2I5MDcxZDJiN2NkNzFlNGVfNDU2NjAvcHJldmlld190YWxrXzEud2VicCIs%0D%0AIm5lZWRSZW1vdmVCYWNrZ3JvdW5kIjpmYWxzZSwia25vd2xlZGdlQmFzZUlkIjoiMmFkY2NkNWYz%0D%0ANmUxNDU2YmFkNDdmNzg2MGRlNWFmOGEiLCJ1c2VybmFtZSI6ImFkNDZkYWI3NTI5NjRhZjNhODNl%0D%0AZDJiMzY1NjdkMzBiIn0%3D&inIFrame=1",
-                clientWidth = document.body.clientWidth,
-                wrapDiv = document.createElement("div");
+    <!-- Main Content Area -->
+    <div class="chat-container">
+      <!-- Left Side - 3D Avatar -->
+      <div class="avatar-container">
+        <div class="avatar-frame">
+          <!-- HeyGen avatar will be positioned here -->
+          <div id="heygen-ai-container"></div>
+          <div class="avatar-controls">
+            <div class="avatar-status">
+              <span id="avatar-status-indicator"></span>
+              <span id="avatar-status-text">AI Assistant is listening...</span>
+            </div>
+            <div class="avatar-buttons">
+              <button
+                id="toggle-avatar"
+                class="avatar-btn"
+                title="Toggle avatar visibility"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
+              <button id="mute-avatar" class="avatar-btn" title="Mute avatar">
+                <i class="fas fa-volume-up"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            wrapDiv.id = "heygen-streaming-embed";
+      <!-- Right Side - Chat Window -->
+      <div class="chat-window">
+        <div class="chat-header">
+          <h2>Chat with Silas</h2>
+          <div class="chat-actions">
+            <button class="btn-icon" id="btn-clear-chat" title="Clear chat">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+            <button class="btn-icon" id="btn-settings">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
 
-            const container = document.createElement("div");
-            container.id = "heygen-streaming-container";
+        <div class="messages" id="message-container">
+          <!-- Messages will appear here -->
+        </div>
 
-            const stylesheet = document.createElement("style");
-            stylesheet.innerHTML = `
-                #heygen-streaming-embed {
-                    z-index: 9999;
-                    position: fixed;
-                    top: 50%; /* Center vertically */
-                    left: 50%; /* Center horizontally */
-                    transform: translate(-50%, -50%); /* Adjust for exact centering */
-                    width: 200px;
-                    height: 200px;
-                    border-radius: 50%;
-                    border: 2px solid #fff;
-                    box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.12);
-                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother transition */
-                    overflow: hidden;
-        
-                    opacity: 0;
-                    visibility: hidden;
-                }
-                #heygen-streaming-embed.show {
-                    opacity: 1;
-                    visibility: visible;
-                }
-                #heygen-streaming-embed.expand {
-                    width: 90%; /* Increase width to 90% of the screen */
-                    height: 80%; /* Increase height to 80% of the screen */
-                    border-radius: 10px; /* Optional: Add rounded corners */
-                    border: 2px solid #fff; /* Optional: Add a border */
-                    transform: translate(-50%, -50%) scale(1); /* Smooth scaling */
-                }
-                #heygen-streaming-container {
-                    width: 100%;
-                    height: 100%;
-                }
-                #heygen-streaming-container iframe {
-                    width: 100%;
-                    height: 100%;
-                    border: 0;
-                }
-            `;
+        <!-- Bottom - User Input Area -->
+        <div class="input-area">
+          <div class="input-actions">
+            <button class="btn-action" id="btn-attachment">
+              <i class="fas fa-paperclip"></i>
+            </button>
+          </div>
+          <div class="text-input">
+            <input
+              type="text"
+              placeholder="Type your message here..."
+              id="user-input"
+            />
+            <button class="btn-send" id="send-button">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+          <div class="voice-actions">
+            <button class="btn-voice" id="btn-voice-record">
+              <i class="fas fa-microphone"></i>
+            </button>
+            <button class="btn-translate" id="btn-translate">
+              <i class="fas fa-language"></i>
+            </button>
+            <button class="btn-voice-clone" id="btn-voice-clone">
+              <i class="fas fa-user"></i>
+            </button>
+            <button class="btn-personality" id="btn-personality">
+              <i class="fas fa-smile"></i>
+            </button>
+          </div>
+        </div>
+      </div>
 
-            const iframe = document.createElement("iframe");
-            iframe.allowFullscreen = !1,
-                iframe.title = "Streaming Embed",
-                iframe.role = "dialog",
-                iframe.allow = "microphone",
-                iframe.src = url;
+      <!-- Fixed Right-Side Panel -->
+      <div class="task-panel" id="task-panel">
+        <div class="panel-header">
+          <h3>Smart Tasks</h3>
+          <button class="btn-minimize" id="toggle-panel">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="task-list">
+          <div class="task-item" data-task="schedule">
+            <i class="fas fa-calendar"></i>
+            <span>Schedule Meeting</span>
+          </div>
+          <div class="task-item" data-task="email">
+            <i class="fas fa-envelope"></i>
+            <span>Send Email</span>
+          </div>
+          <div class="task-item" data-task="form">
+            <i class="fas fa-file-alt"></i>
+            <span>Auto-fill Forms</span>
+          </div>
+          <div class="task-item" data-task="task">
+            <i class="fas fa-tasks"></i>
+            <span>Create Task</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            let visible = !1, initial = !1;
+    <script src="silas.js"></script>
 
-            window.addEventListener("message", (e => {
-                e.origin === host && e.data && e.data.type && "streaming-embed" === e.data.type && (
-                    "init" === e.data.action ? (initial = !0, wrapDiv.classList.toggle("show", initial)) :
-                        "show" === e.data.action ? (visible = !0, wrapDiv.classList.toggle("expand", visible)) :
-                            "hide" === e.data.action && (visible = !1, wrapDiv.classList.toggle("expand", visible))
-                )
-            }));
-
-            container.appendChild(iframe);
-            wrapDiv.appendChild(stylesheet);
-            wrapDiv.appendChild(container);
-            document.body.appendChild(wrapDiv);
-        }(globalThis);
-    </script>
-</body>
-
+    <script src="scheduleTask.js"></script>
+    <script src="emailTask.js"></script>
+    <script src="formTask.js"></script>
+    <script src="todoTask.js"></script>
+  </body>
 </html>
