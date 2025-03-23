@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sSilas AI Chat</title>
+    <title>Silas AI Chat</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
       rel="stylesheet"
@@ -18,124 +18,9 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="silas.html" class="active">Chat</a></li>
         <li><a href="profile.html">Profile</a></li>
-        <li><a href="settings.html">Settings</a></li>
       </ul>
     </nav>
 
-    <!-- Main Content Area -->
-    <div class="chat-container">
-      <!-- Left Side - 3D Avatar -->
-      <div class="avatar-container">
-        <div class="avatar-frame">
-          <!-- HeyGen avatar will be positioned here -->
-          <div id="heygen-ai-container"></div>
-          <div class="avatar-controls">
-            <div class="avatar-status">
-              <span id="avatar-status-indicator"></span>
-              <span id="avatar-status-text">AI Assistant is listening...</span>
-            </div>
-            <div class="avatar-buttons">
-              <button
-                id="toggle-avatar"
-                class="avatar-btn"
-                title="Toggle avatar visibility"
-              >
-                <i class="fas fa-eye"></i>
-              </button>
-              <button id="mute-avatar" class="avatar-btn" title="Mute avatar">
-                <i class="fas fa-volume-up"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Side - Chat Window -->
-      <div class="chat-window">
-        <div class="chat-header">
-          <h2>Chat with Silas</h2>
-          <div class="chat-actions">
-            <button class="btn-icon" id="btn-clear-chat" title="Clear chat">
-              <i class="fas fa-trash-alt"></i>
-            </button>
-            <button class="btn-icon" id="btn-settings">
-              <i class="fas fa-ellipsis-v"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="messages" id="message-container">
-          <!-- Messages will appear here -->
-        </div>
-
-        <!-- Bottom - User Input Area -->
-        <div class="input-area">
-          <div class="input-actions">
-            <button class="btn-action" id="btn-attachment">
-              <i class="fas fa-paperclip"></i>
-            </button>
-          </div>
-          <div class="text-input">
-            <input
-              type="text"
-              placeholder="Type your message here..."
-              id="user-input"
-            />
-            <button class="btn-send" id="send-button">
-              <i class="fas fa-paper-plane"></i>
-            </button>
-          </div>
-          <div class="voice-actions">
-            <button class="btn-voice" id="btn-voice-record">
-              <i class="fas fa-microphone"></i>
-            </button>
-            <button class="btn-translate" id="btn-translate">
-              <i class="fas fa-language"></i>
-            </button>
-            <button class="btn-voice-clone" id="btn-voice-clone">
-              <i class="fas fa-user"></i>
-            </button>
-            <button class="btn-personality" id="btn-personality">
-              <i class="fas fa-smile"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Fixed Right-Side Panel -->
-      <div class="task-panel" id="task-panel">
-        <div class="panel-header">
-          <h3>Smart Tasks</h3>
-          <button class="btn-minimize" id="toggle-panel">
-            <i class="fas fa-chevron-right"></i>
-          </button>
-        </div>
-        <div class="task-list">
-          <div class="task-item" data-task="schedule">
-            <i class="fas fa-calendar"></i>
-            <span>Schedule Meeting</span>
-          </div>
-          <div class="task-item" data-task="email">
-            <i class="fas fa-envelope"></i>
-            <span>Send Email</span>
-          </div>
-          <div class="task-item" data-task="form">
-            <i class="fas fa-file-alt"></i>
-            <span>Auto-fill Forms</span>
-          </div>
-          <div class="task-item" data-task="task">
-            <i class="fas fa-tasks"></i>
-            <span>Create Task</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script src="silas.js"></script>
-
-    <script src="scheduleTask.js"></script>
-    <script src="emailTask.js"></script>
-    <script src="formTask.js"></script>
-    <script src="todoTask.js"></script>
   </body>
 </html>
